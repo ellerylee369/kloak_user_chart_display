@@ -1,5 +1,5 @@
 var ctx = document.getElementById('KloakUserChartbrowser').getContext('2d');
-            console.log('hi', ctx)
+            console.log('hi', ctx);
             var Kloak_User_Chart_Browser = new Chart(ctx, {
                 type: 'line',
                 data : {
@@ -41,5 +41,5 @@ var ctx = document.getElementById('KloakUserChartbrowser').getContext('2d');
                         },
                     },
 
-            })
+            });
             
