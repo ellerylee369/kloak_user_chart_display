@@ -1,16 +1,16 @@
 const numbers_url = './numbers.txt';
 const dates_url = './dates.txt';
 const getNumbers = () => {
-    fetch(numbers_url).then(res => {
+    return fetch(numbers_url).then(res => {
         return res.text();
     }).then(text => {
         const numbers = JSON.parse(text);
         console.log("FROM FETCH", numbers);
-        storeNumbers(numbers);
+        return numbers;
     });
 };
-const storeNumbers = (numbers) => {
-    globalNumbers = numbers;
+const storeNumbers = async () => {
+    globalNumbers = await getNumbers();
     console.log(globalNumbers);
 };
 /*const getNumbers = () => {
@@ -95,6 +95,6 @@ const displayGraph = (graphnumbers) => {
         },
     });
 };
-getNumbers();
-const graphnumbers = globalNumbers;
+const graphnumbers = storeNumbers();
+console.log(graphnumbers);
 displayGraph(graphnumbers);
