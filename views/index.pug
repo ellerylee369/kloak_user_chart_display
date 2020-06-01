@@ -6,8 +6,14 @@ block content
     
     img(src="./images/512.png")
 
-    canvas(id="KloakUserChartbrowser" width="800" height="450")
+    canvas(id="line-chart" width="800" height="450")
+
+    script.
+        var exports = {}
+
     script(type="text/javascript", src="./js/Chart.bundle.min.js")
-    script(type="text/javascript", src="./js/kloakchart.js")
+    script(type="text/javascript", src="./js/main.js")
+    //- script(type="text/javascript", src="./js/daysofmonth.js")
+
     
     
