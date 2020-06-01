@@ -1,6 +1,6 @@
 const numbers_url = './numbers.txt'
 const dates_url = './dates.txt'
-declare var globalNumbers
+//declare var globalNumbers
 
 
 
@@ -9,89 +9,46 @@ const getNumbers = () =>  {
          return res.text()
      }).then(text => {
          const numbers = JSON.parse(text)
-         console.log("FROM FETCH",numbers)
+         //console.log("FROM FETCH",numbers)
          return numbers
          
  
          
      })
-     }
- 
-const storeNumbers = async () => {
-     globalNumbers = await getNumbers() 
-     console.log(globalNumbers)
-     
-     
-     
- 
- }
+}
 
-
-
-
-
-/*const getNumbers = () => { 
-   return fetch(numbers_url).then(res => {
+const getDates = () => {
+    return fetch(dates_url).then(res => {
         return res.text()
     }).then(text => {
-        const numbers = JSON.parse(text)
-        console.log("FROM FETCH",numbers)
-        return numbers
-
-        
+        const dates = JSON.parse(text)
+        return dates 
     })
-    }
-
-const storeNumbers = async () => {
-    const globalNumbers = console.log(await getNumbers())
-    displayGraph(globalNumbers)
-    
-
-}*/
-
-
-
-
-
-
-
-
+}
+ 
+const initializeGraph= async () => {
+     const user_numbers = await getNumbers()
+     const user_dates = await getDates() 
+     console.log(user_numbers)
+     console.log(user_dates)
+     displayGraph(user_dates, user_numbers)
+}
 
 //.then() is passing the data into the NEXT function
 
-/*getNumbersandDates = () => {
-    Promise.all([
-        fetch(numbers_url),
-        fetch(dates_url)
-
-    ]).then((res) => {
-        return res.map(function(res)
-        {return res.text()})
-    }).then((text) => {
-        console.log('from promise.all', text)
-        const [numbers, dates] = text
-        //const graph_numbers = JSON.parse(numbers)
-        //const graph_dates = JSON.parse(dates)
-        console.log(graph_numbers)
-        console.log(graph_dates)
-        //displayGraph(graph_numbers,graph_dates)
-    })
-}*/
-
-
-const displayGraph = (graphnumbers) => {
+const displayGraph = (user_dates, user_numbers) => {
         
-        console.log("FROM GRAPH", graphnumbers)
+        //console.log("FROM GRAPH", graphnumbers)
         const canvas = <HTMLCanvasElement>document.getElementById('line-chart')
         const ctx =canvas.getContext('2d')
         new Chart(ctx, {
             type: 'line',
             data : {
-                labels: ['May 1', 'May 2', 'May 3', 'May 4', 'May 5'],
+                labels: user_dates,
                 datasets: [{
                 fill: false,
                 borderColor: 'rgb(255,99,132)',
-                data : graphnumbers
+                data : user_numbers
             }]
         },
             options: {
@@ -129,7 +86,7 @@ const displayGraph = (graphnumbers) => {
     }
     
 
-const graphnumbers = storeNumbers()
-console.log(graphnumbers)
-displayGraph(graphnumbers)
+initializeGraph()
+//console.log(graphnumbers)
+
 
